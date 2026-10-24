@@ -84,6 +84,15 @@ npm run test:api
 # Run Storefront UI tests only
 npm run test:ui
 
+# Run Admin Panel AI-assisted tests (Inspection, rate audit, multimodal visual quality)
+npm run test:admin:ai
+
+# Run Admin Panel deterministic Playwright tests
+npm run test:admin
+
+# Run Customer portal tests
+npm run test:customer
+
 # Open interactive Playwright UI runner
 npm run test:interactive
 

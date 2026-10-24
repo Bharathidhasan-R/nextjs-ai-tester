@@ -27,7 +27,7 @@ const allProjects = [
     use: {
       ...devices['Desktop Chrome'],
     },
-    testMatch: /.*ai\.spec\.ts/,
+    testMatch: /.*\/ai\.spec\.ts/,
   },
 
   // ========== Mode: Hybrid Testing (Playwright + AI) ==========
@@ -57,14 +57,24 @@ const allProjects = [
     testMatch: /.*api\.spec\.ts/,
   },
 
-  // ========== Admin Console (Authenticated) ==========
+  // ========== Admin Console (Authenticated Deterministic) ==========
   {
     name: 'admin',
     use: {
       ...devices['Desktop Chrome'],
       storageState: 'playwright/.auth/admin.json',
     },
-    testMatch: /.*admin\.spec\.ts/,
+    testMatch: /.*\/admin(?!-ai).*\.spec\.ts/,
+  },
+
+  // ========== Admin Console (AI-Assisted) ==========
+  {
+    name: 'admin-ai',
+    use: {
+      ...devices['Desktop Chrome'],
+      storageState: 'playwright/.auth/admin.json',
+    },
+    testMatch: /.*admin\-ai\.spec\.ts/,
   },
 
   // ========== Customer Portal (Authenticated) ==========
