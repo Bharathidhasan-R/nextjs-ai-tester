@@ -1,6 +1,6 @@
-# Twenty4 DigiGold - AI & Playwright Testing Framework
+# AI & Playwright Automated Testing Framework
 
-A production-grade automated testing system built with **Playwright**, **TypeScript**, and **Gemini AI** for testing the [Twenty4 DigiGold](file:///d:/Projects/JOVI/twenty4_digigold) platform across local and live environments.
+A production-grade automated testing system built with **Playwright**, **TypeScript**, and **Gemini AI** for testing modern web applications and APIs across local and live environments.
 
 ---
 
@@ -33,24 +33,24 @@ PLAYWRIGHT_ENABLED=true
 # Environment Configuration (live / local)
 # ==============================================================================
 TARGET_ENV=live
-PRODUCTION_URL=https://digigold.twenty4.in/digigold
-LOCAL_URL=http://localhost:3000/digigold
+PRODUCTION_URL=https://your-production-domain.com
+LOCAL_URL=http://localhost:3000
 
 # Google Sheets Tracking Document
-TESTING_DOC_URL=https://docs.google.com/spreadsheets/d/1WuI4b4okQxQaplg5nzg53uUldteyszUveon0nsrvYr8/edit?usp=sharing
+TESTING_DOC_URL=https://docs.google.com/spreadsheets/d/your-google-sheet-id/edit?usp=sharing
 
 # ==============================================================================
 # AI Provider Configuration (Google Gemini)
 # ==============================================================================
 GEMINI_API_KEY=your_gemini_api_key_here
-GEMINI_MODEL=gemini-2.5-flash
+GEMINI_MODEL=gemini-3.5-flash
 
 # ==============================================================================
-# Credentials for Authenticated Tests (Admin & Customer)
+# Credentials for Authenticated Tests (Admin & User)
 # ==============================================================================
-ADMIN_USERNAME=admin@digigold.in
+ADMIN_USERNAME=admin@example.com
 ADMIN_PASSWORD=your_admin_password
-CUSTOMER_MOBILE=9876543210
+CUSTOMER_MOBILE=1234567890
 CUSTOMER_OTP=123456
 ```
 
@@ -72,10 +72,10 @@ npm run test:ai
 # Run Hybrid mode (Playwright execution + AI discovery & analysis)
 npm run test:hybrid
 
-# Target Local environment (http://localhost:3000/digigold)
+# Target Local environment
 npm run test:local
 
-# Target Live production environment (https://digigold.twenty4.in/digigold)
+# Target Live production environment
 npm run test:live
 
 # Run Backend API tests only
@@ -100,14 +100,14 @@ npm run clean:reports
 
 ### A. Playwright Testing Mode (`TEST_MODE=playwright`)
 - Automates browser interactions: opening pages, navigating routes, clicking buttons, submitting forms.
-- Validates live rates ticker, digital gold vault, schemes, catalogues, customer login, and admin console.
+- Validates page content, interactive components, responsive views, customer login flows, and administration portals.
 - Uses stable Playwright locators (`getByRole`, explicit selectors) and built-in auto-waiting (`domcontentloaded`).
 - Captures checkpoint screenshots on crucial pages and failures (`screenshots/ui/`).
 - Runs headless by default; supports headed execution (`npm run test:headed`).
 
 ### B. AI Testing Mode (`TEST_MODE=ai`)
 - **Page & Element Discovery**: Scans DOM nodes to detect interactive buttons, inputs, navigation links, and content hierarchies.
-- **Candidate Scenario Generation**: Suggests 3 candidate scenarios per page: Positive (happy path), Negative (invalid inputs/empty forms), and Boundary (mobile responsive, edge cases).
+- **Candidate Scenario Generation**: Suggests candidate scenarios per page: Positive (happy path), Negative (invalid inputs/empty forms), and Boundary (mobile responsive, edge cases).
 - **Failure Diagnostics**: Analyzes failed tests using Gemini to generate human-readable summaries, probable root causes, recommended fixes, and regression test ideas.
 - **Resilient Fallback**: If Gemini API credentials or connectivity are unavailable or slow, provides deterministic heuristic fallback scenarios so tests never stall or crash.
 
@@ -123,7 +123,7 @@ Follows the structured 7-step process:
 *Playwright remains responsible for assertions and actual results—AI never fabricates passes.*
 
 ### D. API Testing
-- Verifies metal rates (`GET /api/rates/current`, `GET /api/mobile/rates`), app settings (`GET /api/mobile/v1/app-settings`), auth guards (`GET /api/users`), credential rejection (`POST /api/auth/login`), and OTP validation (`POST /api/store/auth/send-otp`).
+- Verifies public service endpoints, application settings, protected route auth guards, credential rejection, and input validation.
 - Validates HTTP status codes, JSON schema keys, and response times (< 3500ms).
 - Records request and response evidence payloads in test reports.
 - **No meaningless browser screenshots** are created for API-only tests.
